@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.levelupapp"
-        minSdk = 24
+        minSdk = 26
         //noinspection OldTargetApi
         targetSdk = 35
         versionCode = 1
@@ -44,30 +44,48 @@ android {
 
 dependencies {
 
+    // Основные библиотеки AndroidX
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.androidx.compose.bom))
+
+// Зависимости Jetpack Compose
+    implementation(platform(libs.androidx.compose.bom)) // Обеспечивает согласованность версий библиотек Compose
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    debugImplementation(libs.androidx.ui.tooling)
+    debugImplementation(libs.androidx.ui.test.manifest)
+
+// Навигация
+    implementation(libs.androidx.navigation.compose)
+
+// Хранение данных
+    implementation(libs.androidx.datastore.preferences)
+
+// Сеть
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.gson)
+
+// Загрузка изображений
+    implementation(libs.coil.compose)
+
+// Работа с датами
+    implementation(libs.kotlinx.datetime)
+    implementation(libs.androidx.runtime)
+
+// Тестирование
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
-    debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
-    implementation (libs.androidx.activity.compose.v192)
-    implementation (libs.material3)
-    implementation (libs.androidx.lifecycle.viewmodel.compose)
-    implementation (libs.retrofit)
-    implementation (libs.converter.gson)
-    implementation (libs.gson)
-    implementation (libs.androidx.navigation.compose)
-    implementation (libs.androidx.datastore.preferences)
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.activity.compose)
-    
+
+// Опционально: Material CalendarView
+    implementation(libs.material.calendarview)
+
+    implementation (libs.androidx.appcompat)
 }

@@ -3,18 +3,27 @@ package com.example.levelupapp
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.material3.Typography
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -43,16 +52,15 @@ class MainActivity : ComponentActivity() {
                             arguments = listOf(
                                 navArgument("token") {
                                     type = NavType.StringType
-                                    nullable = true // Делаем token необязательным
-                                    defaultValue = null // Значение по умолчанию
+                                    nullable = true
+                                    defaultValue = null
                                 }
                             )
-                        ) { backStackEntry ->
-                            EmailVerificationScreen(navController)
-                        }
-                        composable("main") { // Добавляем заглушку для main
-                            MainScreen(navController)
-                        }
+                        ) { EmailVerificationScreen(navController) }
+                        composable("main") { MainScreen(navController) }
+                        composable("profile") { ProfileScreen(navController) } // Новый экран профиля
+                        composable("tasks") { TasksScreen(navController) }
+                        composable("calendar") { CalendarScreen(navController) } // Заглушка для календаря
                     }
                 }
             }
@@ -64,26 +72,47 @@ class MainActivity : ComponentActivity() {
 fun LevelUpTheme(content: @Composable () -> Unit) {
     MaterialTheme(
         colorScheme = lightColorScheme(
-            primary = Color(0xFF4E27C0),
+            primary = Color(0xFF562BD7),
             background = Color(0xFFF6F1FE),
-            surface = Color(0xFFC9BEE6),
+            surface = Color(0xFFF0EBF5),
             error = Color(0xFFFF4444),
             onPrimary = Color.White,
-            onBackground = Color(0xFF4E27C0),
-            onSurface = Color(0xFF75669C)
+            onBackground = Color(0xFF110730),
+            onSurface = Color(0xFF110730)
         ),
         typography = Typography(
             titleLarge = TextStyle(
-                fontFamily = FontFamily.SansSerif,
+                fontFamily = FontFamily(Font(R.font.montserratalternatesbold)), // Добавьте шрифт Montserrat Alternates
                 fontWeight = FontWeight.Bold,
                 fontSize = 32.sp
             ),
             bodyMedium = TextStyle(
-                fontFamily = FontFamily.SansSerif,
-                fontWeight = FontWeight.Bold,
-                fontSize = 24.sp
+                fontFamily = FontFamily(Font(R.font.montserratalternatesregular)),
+                fontWeight = FontWeight.Normal,
+                fontSize = 16.sp
             )
         ),
         content = content
     )
 }
+
+// Заглушки для новых экранов
+@Composable
+fun ProfileScreen(navController: NavController) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text("Экран профиля", fontSize = 24.sp)
+        Button(onClick = { navController.navigate("main") }) {
+            Text("Назад")
+        }
+    }
+}
+
+
+

@@ -50,7 +50,7 @@ object RetrofitClient {
             }
 
             var response = chain.proceed(request)
-            if (response.code() == 401) {
+            if (response.code == 401) {
                 val retryTag = request.tag()
                 if (retryTag == null || retryTag !is Boolean || !retryTag) {
                     val newToken = refreshToken()
